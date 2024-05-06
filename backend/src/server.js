@@ -6,8 +6,8 @@ import mongoose from 'mongoose';
 import CreateError from "./utils/error.js";
 import userRouter from './routes/userRoute.js';
 import imageUploadRouter from './routes/imageUploadRoute.js';
-// import mongoSanitize from 'express-mongo-sanitize';
-// import hpp from 'hpp';
+import mongoSanitize from 'express-mongo-sanitize';
+import hpp from 'hpp';
 
 dotenv.config();
 
@@ -29,10 +29,10 @@ app.use(helmet());  // adds security headers
 app.use(morgan("dev"));  // logger
 
 // MongoDB Sanitization middleware
-// app.use(mongoSanitize());
+app.use(mongoSanitize());
 
-// // Parameter Pollution middleware
-// app.use(hpp());
+// Parameter Pollution middleware
+app.use(hpp());
 
 app.use("/api/user",userRouter);  // user routes
 
