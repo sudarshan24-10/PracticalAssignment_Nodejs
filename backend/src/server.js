@@ -5,7 +5,9 @@ import morgan from "morgan";
 import mongoose from 'mongoose';
 import CreateError from "./utils/error.js";
 import userRouter from './routes/userRoute.js';
-
+import imageUploadRouter from './routes/imageUploadRoute.js';
+import mongoSanitize from 'express-mongo-sanitize';
+import hpp from 'hpp';
 
 dotenv.config();
 
@@ -26,14 +28,17 @@ app.use(helmet());  // security headers
 
 app.use(morgan("dev"));  // logger
 
-// app.use((req)=>{
-//     console.log(req.body);
-// });
+// MongoDB Sanitization middleware
+app.use(mongoSanitize());
 
-app.use("/api/user",userRouter);
+// Parameter Pollution middleware
+app.use(hpp());
 
+app.use("/api/user",userRouter);  // user routes
 
-app.use((err, req, res, next) => {
+app.use("/imageUpload",imageUploadRouter);  // image upload routes
+
+app.use((err, req, res, next) => {        // custom error handler
     
     if (err instanceof CreateError) {
         res.status(err.statusCode).json({ error: err.message });

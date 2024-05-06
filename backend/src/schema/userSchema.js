@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
-import { GENDER } from "../utils/constants.js"; // Assuming you have defined GENDER in your validator file
+import { GENDER } from "../utils/constants.js"; 
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({ 
   first_name: {
     type: String,
     required: true
   },
-  last_name: String,
-  email: {
-    type: String,
+  last_name: String, 
+  email: {                   // there is no api to store user id and use it for curd operations so using email instead as default unique identifier to delete,update, get, read operations  
+    type: String, 
     index: true,
     required: true,
     unique: true

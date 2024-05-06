@@ -1,5 +1,7 @@
 import { body,validationResult } from 'express-validator';
 
+// created custom validation for all different api endpoints
+
 export const validateCreateUser = [
   body('first_name').notEmpty().withMessage('First name is required').isLength({ min: 3 }).withMessage('First name must be at least 3 characters'),
   body('last_name').optional().isLength({ min: 3 }).withMessage('Last name must be at least 3 characters'),

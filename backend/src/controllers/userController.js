@@ -1,5 +1,7 @@
 import { create, _delete, update, read, getAllDetails } from "../repository/mongodb.source.js";
 
+
+//user controller functions which will call respective repositories methods and usecases methods
 export async function createUser(data, next) {
   return await create(data, next);
 }
