@@ -1,6 +1,6 @@
 import express from "express";
 import { createUser, deleteUser, getUser, readUserData, updateUser } from "../controllers/userController.js";
-import { validateCreateUser, validateDeleteUser, validateGetUser, validateReadUserData, validateUpdateUser, handleValidationErrors } from "../utils/userDataValidator.js";
+import { validateCreateUser, validateDeleteUser, validateGetUser, validateUpdateUser, handleValidationErrors } from "../utils/userDataValidator.js";
 
 const userRouter = express.Router();
 
@@ -32,16 +32,16 @@ userRouter.delete("/deleteUser", validateDeleteUser, handleValidationErrors, asy
   }
 });
 
-userRouter.get("/readUserData/:value", validateReadUserData, handleValidationErrors, async (req, res,next) => {   // returns a user object attribute value 
+userRouter.get("/readUserData", async (req, res, next) => {   // returns all users 
   try {
-    const result = await readUserData(req.params, req.body.email,next);
+    const result = await readUserData(next);
     res.json(result);
   } catch (error) {
     throw error;
   }
 });
 
-userRouter.get("/getUser", validateGetUser, handleValidationErrors, async (req, res, next) => {      // returns a user object
+userRouter.get("/getUser", validateGetUser, handleValidationErrors, async (req, res, next) => {      // returns a user object 
   try {
     const result = await getUser(req.body.email,next);
     if(result){

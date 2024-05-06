@@ -47,14 +47,10 @@ export async function update(email, data,next) {            // update user detai
   }
 }
 
-export async function read(value, email,next) {       // return specify details of a user which is asked
+export async function read(next) {
   try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      throw new CreateError(404, "User not found with this email address");
-    }
-    const v = user[value.value];
-    return v;      // return specific user data  eg first_name: somename
+    const users = await User.find();
+    return users;    // return all user data 
   } catch (err) {
     next(err);
   }

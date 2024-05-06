@@ -28,10 +28,6 @@ export const validateGetUser = [
   body('email').notEmpty().withMessage('Email is required').isEmail().withMessage('Invalid email format').isLength({ min: 10 }).withMessage('Email must be at least 10 characters')
 ];
 
-export const validateReadUserData = [
-  body('email').notEmpty().withMessage('Email is required').isEmail().withMessage('Invalid email format').isLength({ min: 10 }).withMessage('Email must be at least 10 characters')
-];
-
 export const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
    const error=errors.array().map((obj)=>{

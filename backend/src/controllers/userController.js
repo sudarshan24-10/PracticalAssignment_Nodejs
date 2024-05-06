@@ -18,6 +18,6 @@ export async function getUser(email, next) {
   return await getAllDetails(email, next);
 }
 
-export async function readUserData(value, email, next) {
-  return await read(value, email, next);
+export async function readUserData(next) {
+  return await read(next);
 }
