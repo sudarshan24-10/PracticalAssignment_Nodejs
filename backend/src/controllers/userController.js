@@ -1,19 +1,21 @@
-export function createUser(){
+import { create, _delete, update, read, getAllDetails } from "../repository/mongodb.source.js";
 
+export async function createUser(data, next) {
+  return await create(data, next);
 }
 
-export function deleteUser(){
-
+export async function deleteUser(email, next) {
+  return await _delete(email, next);
 }
 
-export function updateUser(){
-
+export async function updateUser(email, data, next) {
+  return await update(email, data, next);
 }
 
-export function getUser(){
-
+export async function getUser(email, next) {
+  return await getAllDetails(email, next);
 }
 
-export function readUserData(){
-    
+export async function readUserData(value, email, next) {
+  return await read(value, email, next);
 }

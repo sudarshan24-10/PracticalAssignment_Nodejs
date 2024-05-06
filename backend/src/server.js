@@ -26,15 +26,21 @@ app.use(helmet());  // security headers
 
 app.use(morgan("dev"));  // logger
 
+// app.use((req)=>{
+//     console.log(req.body);
+// });
+
 app.use("/api/user",userRouter);
 
+
 app.use((err, req, res, next) => {
+    
     if (err instanceof CreateError) {
         res.status(err.statusCode).json({ error: err.message });
     } else {
         next(err);
     }
-});  //custom error handler middleware
+}); 
 
 app.listen(process.env.PORT,()=>{
     console.log(`Server is running on address http://localhost:${process.env.PORT}`);
