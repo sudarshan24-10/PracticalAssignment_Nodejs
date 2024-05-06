@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import mongoose from 'mongoose';
+import CreateError from "./utils/error.js";
+import userRouter from './routes/userRoute.js';
 
 
 dotenv.config();
@@ -24,9 +26,15 @@ app.use(helmet());  // security headers
 
 app.use(morgan("dev"));  // logger
 
+app.use("/api/user",userRouter);
 
-
-
+app.use((err, req, res, next) => {
+    if (err instanceof CreateError) {
+        res.status(err.statusCode).json({ error: err.message });
+    } else {
+        next(err);
+    }
+});  //custom error handler middleware
 
 app.listen(process.env.PORT,()=>{
     console.log(`Server is running on address http://localhost:${process.env.PORT}`);
